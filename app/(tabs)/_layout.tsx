@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Platform } from 'react-native';
 import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs';
@@ -8,16 +9,16 @@ export default function TabLayout() {
   // Define the tabs configuration
   const tabs: TabBarItem[] = [
     {
-      name: '(home)',
-      route: '/(tabs)/(home)/',
-      icon: 'house.fill',
-      label: 'Home',
+      name: 'ielts',
+      route: '/(tabs)/ielts',
+      icon: 'doc.text.fill',
+      label: 'IELTS',
     },
     {
-      name: 'profile',
-      route: '/(tabs)/profile',
-      icon: 'person.fill',
-      label: 'Profile',
+      name: 'bacii',
+      route: '/(tabs)/bacii',
+      icon: 'graduationcap.fill',
+      label: 'Bac II',
     },
   ];
 
@@ -25,13 +26,13 @@ export default function TabLayout() {
   if (Platform.OS === 'ios') {
     return (
       <NativeTabs>
-        <NativeTabs.Trigger name="(home)">
-          <Icon sf="house.fill" drawable="ic_home" />
-          <Label>Home</Label>
+        <NativeTabs.Trigger name="ielts">
+          <Icon sf="doc.text.fill" drawable="ic_document" />
+          <Label>IELTS</Label>
         </NativeTabs.Trigger>
-        <NativeTabs.Trigger name="profile">
-          <Icon sf="person.fill" drawable="ic_profile" />
-          <Label>Profile</Label>
+        <NativeTabs.Trigger name="bacii">
+          <Icon sf="graduationcap.fill" drawable="ic_school" />
+          <Label>Bac II</Label>
         </NativeTabs.Trigger>
       </NativeTabs>
     );
@@ -43,11 +44,11 @@ export default function TabLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          animation: 'none', // Remove fade animation to prevent black screen flash
+          animation: 'none',
         }}
       >
-        <Stack.Screen name="(home)" />
-        <Stack.Screen name="profile" />
+        <Stack.Screen name="ielts" />
+        <Stack.Screen name="bacii" />
       </Stack>
       <FloatingTabBar tabs={tabs} />
     </>
