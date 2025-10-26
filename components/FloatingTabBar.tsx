@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   View,
@@ -37,7 +38,7 @@ interface FloatingTabBarProps {
 
 export default function FloatingTabBar({
   tabs,
-  containerWidth = 240,
+  containerWidth = 320,
   borderRadius = 25,
   bottomMargin
 }: FloatingTabBarProps) {
@@ -95,8 +96,6 @@ export default function FloatingTabBar({
   const handleTabPress = (route: string) => {
     router.push(route);
   };
-
-  // Remove unnecessary tabBarStyle animation to prevent flickering
 
   const indicatorStyle = useAnimatedStyle(() => {
     const tabWidth = (containerWidth - 16) / tabs.length; // Account for container padding (8px on each side)
@@ -184,7 +183,7 @@ export default function FloatingTabBar({
                   <View style={styles.tabContent}>
                     <IconSymbol
                       name={tab.icon}
-                      size={24}
+                      size={22}
                       color={isActive ? theme.colors.primary : (theme.dark ? '#98989D' : '#8E8E93')}
                     />
                     <Text
@@ -214,20 +213,17 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1000,
-    alignItems: 'center', // Center the content
+    alignItems: 'center',
   },
   container: {
     marginHorizontal: 20,
     alignSelf: 'center',
-    // width and marginBottom handled dynamically via props
   },
   blurContainer: {
     overflow: 'hidden',
-    // borderRadius and other styling applied dynamically
   },
   background: {
     ...StyleSheet.absoluteFillObject,
-    // Dynamic styling applied in component
   },
   indicator: {
     position: 'absolute',
@@ -235,8 +231,6 @@ const styles = StyleSheet.create({
     left: 8,
     bottom: 8,
     borderRadius: 17,
-    width: `${(100 / 2) - 3}%`, // Default for 2 tabs, will be overridden by dynamic styles
-    // Dynamic styling applied in component
   },
   tabsContainer: {
     flexDirection: 'row',
@@ -256,9 +250,8 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   tabLabel: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '500',
     marginTop: 2,
-    // Dynamic styling applied in component
   },
 });

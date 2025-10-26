@@ -20,6 +20,12 @@ export default function TabLayout() {
       icon: 'graduationcap.fill',
       label: 'Bac II',
     },
+    {
+      name: 'credits',
+      route: '/(tabs)/credits',
+      icon: 'info.circle.fill',
+      label: 'Credits',
+    },
   ];
 
   // Use NativeTabs for iOS, custom FloatingTabBar for Android and Web
@@ -33,6 +39,10 @@ export default function TabLayout() {
         <NativeTabs.Trigger name="bacii">
           <Icon sf="graduationcap.fill" drawable="ic_school" />
           <Label>Bac II</Label>
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="credits">
+          <Icon sf="info.circle.fill" drawable="ic_info" />
+          <Label>Credits</Label>
         </NativeTabs.Trigger>
       </NativeTabs>
     );
@@ -49,8 +59,9 @@ export default function TabLayout() {
       >
         <Stack.Screen name="ielts" />
         <Stack.Screen name="bacii" />
+        <Stack.Screen name="credits" />
       </Stack>
-      <FloatingTabBar tabs={tabs} />
+      <FloatingTabBar tabs={tabs} containerWidth={320} />
     </>
   );
 }

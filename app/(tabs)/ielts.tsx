@@ -230,9 +230,10 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    paddingBottom: 120,
   },
   contentContainerWithTabBar: {
-    paddingBottom: 100,
+    paddingBottom: 120,
   },
   title: {
     fontSize: 28,
@@ -292,6 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
+    marginBottom: 20,
   },
   resultLabel: {
     fontSize: 16,

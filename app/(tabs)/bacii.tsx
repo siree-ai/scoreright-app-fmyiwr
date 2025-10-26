@@ -78,15 +78,28 @@ export default function BacIICalculator() {
     }
 
     // Calculate bonus for English
+    // The English score max is 50, but if you score 50, you only get 25 bonus points
+    // This means: bonus = (score - 25), but the actual points counted = 25 + bonus
+    // So if score is 50: bonus = 50 - 25 = 25, and total English contribution = 25 + 25 = 50
+    // But the requirement says "if you scored 50 you only get 25 point because they -25"
+    // This means the English score itself is halved: actual_english_points = score / 2
     let englishBonus = 0;
+    let actualEnglishScore = e;
+    
+    // Based on the requirement: if English max score is 50 but if you scored 50 you only get 25 points
+    // This means English score is worth half its value
+    actualEnglishScore = e / 2;
+    
+    // If the score is above 25 (original score), add bonus
     if (e > 25) {
-      englishBonus = e - 25;
+      englishBonus = (e - 25) / 2; // Bonus is also halved
       console.log('English bonus:', englishBonus);
     }
     setBonus(englishBonus);
 
     // Calculate total points
-    const total = w + m + p + c + b + h + e + englishBonus;
+    // English contributes: actualEnglishScore + englishBonus
+    const total = w + m + p + c + b + h + actualEnglishScore + englishBonus;
     console.log('Total points:', total);
     setTotalPoints(total);
 
@@ -292,7 +305,7 @@ export default function BacIICalculator() {
 
             <View style={styles.inputGroup}>
               <Text style={[styles.label, { color: theme.colors.text }]}>
-                English <Text style={styles.maxScore}>(max 50, bonus if &gt; 25)</Text>
+                English <Text style={styles.maxScore}>(max 50, worth 25 pts)</Text>
               </Text>
               <TextInput
                 style={[
@@ -346,7 +359,7 @@ export default function BacIICalculator() {
               {bonus > 0 && (
                 <View style={styles.bonusContainer}>
                   <Text style={[styles.bonusText, { color: '#FFD60A' }]}>
-                    🎉 English Bonus: +{bonus} points
+                    🎉 English Bonus: +{bonus.toFixed(1)} points
                   </Text>
                 </View>
               )}
@@ -354,7 +367,7 @@ export default function BacIICalculator() {
                 Total Points
               </Text>
               <Text style={[styles.resultValue, { color: theme.colors.text }]}>
-                {totalPoints}
+                {totalPoints.toFixed(1)}
               </Text>
               <View style={styles.gradeContainer}>
                 <Text style={[styles.gradeLabel, { color: theme.dark ? '#98989D' : '#666' }]}>
@@ -397,9 +410,10 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    paddingBottom: 120,
   },
   contentContainerWithTabBar: {
-    paddingBottom: 100,
+    paddingBottom: 120,
   },
   title: {
     fontSize: 28,
@@ -464,6 +478,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
+    marginBottom: 20,
   },
   bonusContainer: {
     marginBottom: 16,
