@@ -77,29 +77,23 @@ export default function BacIICalculator() {
       return;
     }
 
-    // Calculate bonus for English
-    // The English score max is 50, but if you score 50, you only get 25 bonus points
-    // This means: bonus = (score - 25), but the actual points counted = 25 + bonus
-    // So if score is 50: bonus = 50 - 25 = 25, and total English contribution = 25 + 25 = 50
-    // But the requirement says "if you scored 50 you only get 25 point because they -25"
-    // This means the English score itself is halved: actual_english_points = score / 2
+    // Calculate English score: subtract 25 from the raw score
+    // If English score is 50, the actual points = 50 - 25 = 25
+    // If English score is 30, the actual points = 30 - 25 = 5
+    // If English score is 25 or below, the actual points = 0
+    let actualEnglishScore = Math.max(0, e - 25);
+    
+    // Calculate bonus for English scores above 25
     let englishBonus = 0;
-    let actualEnglishScore = e;
-    
-    // Based on the requirement: if English max score is 50 but if you scored 50 you only get 25 points
-    // This means English score is worth half its value
-    actualEnglishScore = e / 2;
-    
-    // If the score is above 25 (original score), add bonus
     if (e > 25) {
-      englishBonus = (e - 25) / 2; // Bonus is also halved
+      englishBonus = e - 25;
       console.log('English bonus:', englishBonus);
     }
     setBonus(englishBonus);
 
     // Calculate total points
-    // English contributes: actualEnglishScore + englishBonus
-    const total = w + m + p + c + b + h + actualEnglishScore + englishBonus;
+    // English contributes: actualEnglishScore (which is already e - 25)
+    const total = w + m + p + c + b + h + actualEnglishScore;
     console.log('Total points:', total);
     setTotalPoints(total);
 
@@ -305,7 +299,7 @@ export default function BacIICalculator() {
 
             <View style={styles.inputGroup}>
               <Text style={[styles.label, { color: theme.colors.text }]}>
-                English <Text style={styles.maxScore}>(max 50, worth 25 pts)</Text>
+                English <Text style={styles.maxScore}>(max 50, score - 25)</Text>
               </Text>
               <TextInput
                 style={[
@@ -359,7 +353,7 @@ export default function BacIICalculator() {
               {bonus > 0 && (
                 <View style={styles.bonusContainer}>
                   <Text style={[styles.bonusText, { color: '#FFD60A' }]}>
-                    🎉 English Bonus: +{bonus.toFixed(1)} points
+                    🎉 English Score: {bonus} points (after -25)
                   </Text>
                 </View>
               )}

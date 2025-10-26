@@ -84,7 +84,7 @@ export default function Credits() {
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.dark ? '#666' : '#999' }]}>
-            Made with ❤️ for students
+            Made with  for students
           </Text>
         </View>
       </ScrollView>
